@@ -32,4 +32,17 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
      * @var array
      */
     protected $hidden = ['password', 'remember_token'];
+	
+	public function steamGames() {
+		return $this->belongsToMany(
+				"Morpheus\SteamGame",
+				"steam_played", 
+				"user_id",
+				"game_id"
+		)->withPivot('playtime_forever', "playtime_2weeks")->withTimestamps();
+	}
+	
+	public function getSteamID() {
+		return $this->steamID;
+	}
 }

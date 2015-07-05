@@ -18,6 +18,16 @@ Route::get('/', function () {
 
 Route::any('/steam', function () {
     $user = Morpheus\User::where("steamUsername", "ernes7a")->first();
-	$steam_games = (new Morpheus\APIs\SteamGames())->getGames($user->steamID);
-	return $steam_games;
+	
+	if (false) {
+		#request game list via API
+		$steam_games = iterator_to_array(
+				(new Morpheus\APIs\SteamGames())->getGames($user)
+		);
+	} else {
+		#generate the game list locally
+	}
+	$games = $user->steamGames()->get();
+	return response()->json($games);
+	
 });
