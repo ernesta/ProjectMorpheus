@@ -17,7 +17,7 @@
 	// Sends an AJAX request to a PHP file which in turn sends a request for a list of games to Steam.
 	function requestOwnedGames() {
 		var request = $.ajax({
-			url: "steam",
+			url: "steam.php",
 			type: "POST"
 		}).done(displayGames)
 	}
@@ -35,13 +35,14 @@
 	
 	// Reads the returned JSON, adds the resulting data to games (a dictionary of games indexed by game ID) and topAll/topRecent (lists of dictionaries indexed by the number of minutes corresponding games have been played).
 	function processGames(data) {
-		var gameList = data
+		var response = $.parseJSON(data)["response"]
+		var gameList = response["games"]
 		
 		for (var i = 0; i < gameList.length; i++) {
 			var game = gameList[i]
 			var gameID = game["appid"]
-			var playedAll = parseInt(game["pivot"]["playtime_forever"])
-			var playedWeeks = parseInt(game["pivot"]["playtime_2weeks"])
+			var playedAll = parseInt(game["playtime_forever"])
+			var playedWeeks = game["playtime_2weeks"] ? parseInt(game["playtime_2weeks"]) : 0
 			
 			// All games, even those that have never been played, are added to the lists. Having zero-time games is useful, since this allows for a quick access to all games that have not been (recently or at all) tried by the user.
 			if (!(playedAll in topAll)) {
