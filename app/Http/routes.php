@@ -16,6 +16,8 @@ Route::get('/', function () {
 });
 
 
-Route::post('/steam', function () {
-    return view('steam');
+Route::any('/steam', function () {
+    $user = Morpheus\User::where("steamUsername", "ernes7a")->first();
+	$steam_games = (new Morpheus\APIs\SteamGames())->getGames($user->steamID);
+	return $steam_games;
 });
