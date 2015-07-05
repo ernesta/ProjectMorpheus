@@ -17,7 +17,7 @@
 	// Sends an AJAX request to a PHP file which in turn sends a request for a list of games to Steam.
 	function requestOwnedGames() {
 		var request = $.ajax({
-			url: "steam.php",
+			url: "steam",
 			type: "POST"
 		}).done(displayGames)
 	}

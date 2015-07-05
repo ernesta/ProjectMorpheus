@@ -1,3 +1,8 @@
+/vendor
+/node_modules
+Homestead.yaml
+.env
+
 # Secret Stuff
 secrets.php
 
