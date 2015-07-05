@@ -30,6 +30,7 @@
 		displayFeaturedGames(topAllGames)
 		
 		displayAllGames()
+		initSorting()
 	}
 	
 	// Reads the returned JSON, adds the resulting data to games (a dictionary of games indexed by game ID) and topAll/topRecent (lists of dictionaries indexed by the number of minutes corresponding games have been played).
@@ -113,10 +114,61 @@
 				var icon = "<img src=" + IMG_URL + ID + "/" + game["icon"] + ".jpg />"
 			}
 			
-			rows += "<tr><td>" + icon + "</td><td>" + game["name"] + "</td><td></td><td></td><td></td><td>" + game["playedAll"] + "</td><td>" + game["playedWeeks"] + "</td></tr>"
-			 + "</tr>"
+			rows +=
+				"<tr>" +
+				"<td>" + icon + "</td>" +
+				"<td class='name'>" + game["name"] + "</td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td></td>" +
+				"<td><span style='display:none;' class='playedAll'>" + game["playedAll"] + "</span>" + getPrettyTime(game["playedAll"]) + "</td>" +
+				"</tr>"
 		}
 		
 		$(".table").append(rows)
+	}
+	
+	
+	function initSorting() {
+		var options = {
+			valueNames: ["name", "playedAll"],
+			page: 10000
+		}
+		
+		var list = new List("games", options)
+		list.sort("name")
+	}
+	
+	
+	// Returns pretty time in hrs:mins format.
+	function getPrettyTime(minutes) {
+		var hours = Math.floor(minutes / 60)
+		var mins = minutes % 60
+		
+		sHours = "" + hours
+		sMins = mins > 9 ? "" + mins : "0" + mins
+		
+		return sHours + ":" + sMins
+	}
+	
+	function getTimeInMinutes(prettyTime) {
+		var pieces = prettyTime.split(":")
+		var hours = parseInt(pieces[0])
+		var mins = parseInt(pieces[1])
+
+		return hours * 60 + mins
+	}
+	
+	function sortTime(a, b, options) {
+		mins1 = getTimeInMinutes(a.values()[options.valueName])
+		mins2 = getTimeInMinutes(b.values()[options.valueName])
+		
+		if (mins1 > mins2) {
+			return 1
+		} else if (mins1 < mins2) {
+			return -1
+		} else {
+			return 0
+		}
 	}
 })(jQuery)

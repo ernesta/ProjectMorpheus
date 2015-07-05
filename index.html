@@ -37,7 +37,7 @@
 					</ul>
 				</div>
 				
-				<div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
+				<div id="games" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 					<h1 class="page-header">Central Control</h1>
 					
 					<div class="row features">
@@ -52,20 +52,22 @@
 					</div>
 					
 					<h2 class="sub-header">All Games</h2>
+					
+					<input type="text" class="search form-control" placeholder="Search">
+					
 					<div class="table-responsive">
 						<table class="table table-striped">
 							<thead>
 								<tr>
 									<th></th>
-									<th>Game</th>
+									<th class="sort" data-sort="name">Game</th>
 									<th>Genre</th>
 									<th>Platform</th>
 									<th>Rating</th>
-									<th>Played</th>
-									<th>Played Recently</th>
+									<th class="sort" data-sort="playedAll"><span class="glyphicon glyphicon-time" aria-hidden="true"></span></th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody class="list">
 							</tbody>
 						</table>
 					</div>
@@ -75,6 +77,7 @@
 		
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/list.js/1.1.1/list.min.js"></script>
 		<script src="scripts.js"></script>
 	</body>
 </html>

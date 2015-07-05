@@ -77,3 +77,8 @@ body {
   display: inline-block;
   border-radius: 50%;
 }
+
+/* Table */
+.table > tbody > tr > td {
+	vertical-align: middle;
+}
