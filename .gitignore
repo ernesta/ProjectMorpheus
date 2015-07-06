@@ -1,3 +1,4 @@
+# Laravel defaults
 /vendor
 /node_modules
 Homestead.yaml
