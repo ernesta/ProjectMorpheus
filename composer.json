@@ -1,7 +1,7 @@
 {
-    "name": "laravel/laravel",
-    "description": "The Laravel Framework.",
-    "keywords": ["framework", "laravel"],
+    "name": "ernesta/morpheus",
+    "description": "Project Morpheus",
+    "keywords": ["framework", "laravel", "games"],
     "license": "MIT",
     "type": "project",
     "require": {
