@@ -19,7 +19,8 @@ Route::get('/', function () {
 Route::any('/steam', function () {
     $user = Morpheus\User::where("steamUsername", "ernes7a")->first();
 	
-	if (false) {
+	if (true) {
+		DB::table('steam_games')->delete();
 		#request game list via API
 		$steam_games = iterator_to_array(
 				(new Morpheus\APIs\SteamGames())->getGames($user)

@@ -40,22 +40,20 @@ class SteamGames {
 				'img_logo_url' => $game->img_logo_url,
 				'has_community_visible_stats' => isset($game->has_community_visible_stats) ? true : false
 			]);
-			#sync to user
-		$pivot_data = [
-			"playtime_forever" => $game->playtime_forever,
-			"playtime_2weeks" => isset($game->playtime_2weeks) ? $game->playtime_2weeks : 0
-		];
-		$steamGame->users()->save($user, $pivot_data);
-		#otherwise just update values
+			$steamGame->setAttribute($steamGame->getKeyName(), $game->appid);
 		} else {
 			$steamGame->name = $game->name;
 			$steamGame->img_icon_url = $game->img_icon_url;
 			$steamGame->img_logo_url = $game->img_logo_url;
 			$steamGame->has_community_visible_stats = isset($game->has_community_visible_stats) ? true : false;
-			$steamGame->save();	
-			$steamGame->users()->updateExistingPivot($user->id, $pivot_data);
-		}		
-		#return fully linked up game
+			$steamGame->save();
+		}
+		#sync to user
+		$pivot_data = [
+			"playtime_forever" => $game->playtime_forever,
+			"playtime_2weeks" => isset($game->playtime_2weeks) ? $game->playtime_2weeks : 0
+		];
+		$steamGame->users()->sync([$user->id => $pivot_data], false);
 		return $steamGame;
 	}
 	
