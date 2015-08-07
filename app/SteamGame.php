@@ -19,4 +19,8 @@ class SteamGame extends Model
 				"user_id"
 		)->withPivot('playtime_forever', 'playtime_2weeks')->withTimestamps();
 	}
+	
+	public function getName() {
+		return $this->name;
+	}
 }
