@@ -27,7 +27,7 @@ class Kernel extends HttpKernel
      */
     protected $routeMiddleware = [
         'auth' => \Morpheus\Http\Middleware\Authenticate::class,
-        'auth.basic' => \Illuminate\Auth\Middleware\AuthenticateWithBasicAuth::class,
+        'auth.basic' => \Morpheus\Http\Middleware\AuthenticateWithBasicAuthUsername::class,
         'guest' => \Morpheus\Http\Middleware\RedirectIfAuthenticated::class,
     ];
 }
