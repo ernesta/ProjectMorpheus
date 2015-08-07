@@ -54,3 +54,10 @@ Route::any('/steam/destroy', ['as' => 'wipe_game_data', function() {
 		return redirect('')->with('error', 'Not authorized to wipe data');
 	}
 }]);
+
+Route::get('metacritic', function() {
+	$game = Morpheus\SteamGame::orderByRaw("RAND()")->first();
+	$game = Morpheus\SteamGame::where('name', "Bastion")->first();
+	$info = (new Morpheus\APIs\MetacriticGames())->update($game);
+	return response()->json([$game, $info]);
+});
