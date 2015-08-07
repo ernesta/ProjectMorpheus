@@ -24,7 +24,20 @@
 		<nav class="navbar navbar-inverse navbar-fixed-top">
 			<div class="container-fluid">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="">Project Morpheus</a>
+					<a class="navbar-brand" href="{{ url() }}">Project Morpheus</a>
+				</div>
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav navbar-right">
+						@if (Auth::check())
+							<li>
+								<a href="{{ route("profile") }}">{{ Auth::user()->getUsername() }}</a>
+							</li>
+						@else
+							<li>
+								<a href="{{ route('login') }}">Login</a>
+							</li>
+						@endif
+					</ul>
 				</div>
 			</div>
 		</nav>
@@ -39,6 +52,16 @@
 				
 				<div id="games" class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 					<h1 class="page-header">Central Control</h1>
+					@if (session('status'))
+						<div class="alert alert-success">
+							{{ session('status') }}
+						</div>
+					@endif
+					@if (session('error'))
+						<div class="alert alert-danger">
+							{{ session('error') }}
+						</div>
+					@endif
 					
 					<div class="row features">
 						<div class="col-xs-6 col-sm-3 feature">
