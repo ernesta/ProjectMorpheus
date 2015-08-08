@@ -45,4 +45,8 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
 	public function getSteamID() {
 		return $this->steamID;
 	}
+	
+	public function getUsername() {
+		return $this->steamUsername;
+	}
 }
