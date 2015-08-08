@@ -58,6 +58,8 @@
 				"icon": game["img_icon_url"],
 				"logo": game["img_logo_url"],
 				"name": game["name"],
+				"genre": game['metacritic_genre'],
+				"rating": parseInt(game['metacritic_score']),
 				"playedAll": playedAll,
 				"playedWeeks": playedWeeks
 			}
@@ -117,9 +119,9 @@
 				"<tr>" +
 				"<td>" + icon + "</td>" +
 				"<td class='name'>" + game["name"] + "</td>" +
+				"<td>" + game["genre"] + "</td>" +
 				"<td></td>" +
-				"<td></td>" +
-				"<td></td>" +
+				"<td>" + game["rating"] + "</td>" +
 				"<td><span style='display:none;' class='playedAll'>" + game["playedAll"] + "</span>" + getPrettyTime(game["playedAll"]) + "</td>" +
 				"</tr>"
 		}
