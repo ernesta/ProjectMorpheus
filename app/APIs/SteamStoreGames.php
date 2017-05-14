@@ -56,7 +56,11 @@ class SteamStoreGames {
 	
 	protected function updateGame(\Morpheus\SteamGame $game, \GuzzleHttp\Psr7\Response $response) {
 		$body = json_decode($response->getBody());
-		$result = reset($body);
+        try {
+    		$result = reset($body);
+        } catch (\ErrorException $e) {
+            $result = null;
+        }
 		
 		if (
 			($response->getStatusCode() == 200) && 
