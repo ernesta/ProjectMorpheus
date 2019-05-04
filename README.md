@@ -15,6 +15,4 @@ Everything you ever wanted to know about your own Steam game collection.
 
 ## Screenshot
 
-I promise it looks much better when populated with actual games ʕ•ᴥ•ʔ
-
 ![Project Morpheus](screen.png)
