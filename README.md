@@ -1,6 +1,6 @@
-# ProjectMorpheus
+# Project Morpheus
 
-Help me choose which of my hundreds and hundreds of Steam games to play next.
+Everything you ever wanted to know about your own Steam game collection.
 
 ## Authors
 **Ernesta Orlovaitė**
@@ -12,3 +12,9 @@ Help me choose which of my hundreds and hundreds of Steam games to play next.
 
 + [aurimas.eu](http://aurimas.eu)
 + [@Aurimas](http://twitter.com/aurimas)
+
+## Screenshot
+
+I promise it looks much better when populated with actual games ʕ•ᴥ•ʔ
+
+![Project Morpheus](screen.png)
