@@ -37,6 +37,8 @@ class CreateMetacriticTable extends Migration
     public function down()
     {
         Schema::table('steam_games', function (Blueprint $table) {
+			$table->dropIndex('steam_games_metacritic_updated_index');
+			$table->dropIndex('steam_games_metacritic_score_metacritic_userscore_index');			
             $table->dropColumn("metacritic_name");
 			$table->dropColumn("metacritic_score");
 			$table->dropColumn("metacritic_userscore");
@@ -48,8 +50,6 @@ class CreateMetacriticTable extends Migration
 			$table->dropColumn("metacritic_rlsdate");
 			$table->dropColumn("metacritic_summary");
 			$table->dropColumn("metacritic_updated");
-			$table->dropIndex('steam_games_metacritic_updated_index');
-			$table->dropIndex('steam_games_metacritic_score_metacritic_userscore_index');			
         });
     }
 }

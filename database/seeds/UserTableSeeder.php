@@ -12,11 +12,11 @@ class UserTableSeeder extends Seeder
     public function run()
     {
          DB::table('users')->insert([
-            'name' => "Ernesta",
-            'email' => 'ernesta@ernes7a.lt',
-            'password' => bcrypt('secret'),
-			'steamID' => '76561198041112883',
-			 'steamUsername' => 'ernes7a'
+            'name' => env('ADMIN_STEAM_USERNAME', "Admin"),
+            'email' => env('ADMIN_EMAIL', "admin@admin.com"),
+            'password' => bcrypt(env('ADMIN_PASSWORD', "secret")),
+			'steamID' => env('ADMIN_STEAM_ID', "1001"),
+			 'steamUsername' => env('ADMIN_STEAM_USERNAME', "Admin"),
         ]);
     }
 }

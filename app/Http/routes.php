@@ -1,5 +1,9 @@
 <?php
 
+use Morpheus\Jobs\GetUserGames;
+use \Morpheus\Jobs\GameUpdateMetacritic;
+use Morpheus\Jobs\GameUpdateSteamStore;
+
 Route::get('/', function () {
 	return view('start-page');
 });
@@ -37,6 +41,31 @@ Route::post('/steam/refresh', ['as' => 'update_steam_data', function() {
 	}
 }]);
 
+Route::get('/refresh/profile', ['as' => 'refresh_user_profile', function() {
+	if (Auth::check()) {
+		dispatch((new GetUserGames(Auth::user()))->onQueue('profile_updates'));
+		return redirect('profile')->with('status',  'Steam game information update initiated');
+	} else {
+		return redirect('')->with('error', 'Not authorized to update games');
+	}
+}]);
+
+Route::get('/refresh/metacritic/{count?}', ['as' => 'refresh_metacritic', function($count = 10) {
+	$games = Morpheus\SteamGame::orderBy("metacritic_updated","asc")->take($count)->get();
+	foreach($games as $game) {
+		dispatch((new GameUpdateMetacritic($game))->onQueue('metacritic'));
+	}
+	return redirect('profile')->with('status',  'Metacritic information update initiated');
+}]);
+
+Route::get('/refresh/store/{count?}', ['as' => 'refresh_store', function($count = 10) {
+	$games = Morpheus\SteamGame::orderBy("steam_store_updated","asc")->take($count)->get();
+	foreach($games as $game) {
+		dispatch((new GameUpdateSteamStore($game))->onQueue('steam-store'));
+	}
+	return redirect('profile')->with('status',  'Steam Store information update initiated');
+}]);
+
 Route::any('/steam/delete', ['as' => 'delete_steam_data', function() {
 	if (Auth::check()) {
 		Auth::user()->steamGames()->detach();
@@ -55,8 +84,14 @@ Route::any('/steam/destroy', ['as' => 'wipe_game_data', function() {
 	}
 }]);
 
-Route::get('metacritic/{count?}', function($count = 5) {
-	$games = Morpheus\SteamGame::where('metacritic_updated', '0000-00-00 00:00:00')->orderByRaw("RAND()")->take($count)->get();
+Route::get('/get/metacritic/{count?}', function($count = 5) {
+	$games = Morpheus\SteamGame::orderBy("steam_store_updated","asc")->take($count)->get();
 	(new Morpheus\APIs\MetacriticGames())->updateMany($games);
+	return response()->json($games);
+})->where('count', '[0-9]+');
+
+Route::get('/get/store/{count?}', function($count = 5) {
+	$games = Morpheus\SteamGame::orderBy("steam_store_updated","asc")->take($count)->get();
+	(new Morpheus\APIs\SteamStoreGames())->updateMany($games);
 	return response()->json($games);
 })->where('count', '[0-9]+');
